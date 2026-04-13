@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наше Меню — Пицца Мигом</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+      <img src="logo.png">
+      <span>Пицца Мигом</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav" id="navMenu">
+      <ul class="header_menu">
+        <li><a href="index.html">Главная</a></li>
+        <li class="dropdown">
+          <a href="FullShop.html" class="active">Товар</a>
+          <ul class="dropdown-menu">
+            <li><a href="FullShop.html">Вся продукция</a></li>
+            <li><a href="#">Подробности магазина</a></li>
+            <li><a href="#">Корзина</a></li>
+            <li><a href="#">Оформить покупку</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Страницы</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">О нас</a></li>
+            <li><a href="#">Наша команда</a></li>
+            <li><a href="#">Ответы на вопросы</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Контакты</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Телефон</a></li>
+            <li><a href="#">Адрес</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="icons">
+      <span>
+        <img class="search" src="img/free-icon-search-7079548.png" alt="Search">
+      </span>
+      <span>
+        <img class="search" src="img/free-icon-shopping-cart-commercial-interface-symbol-outline-40368.png" alt="Cart">
+        <b>0</b>
+      </span>
+    </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ==================== HERO BANNER ==================== -->
+<section class="shop-hero">
+    <div class="shop-hero__bg">
+        <span class="shop-hero__dec shop-hero__dec--1"></span>
+        <span class="shop-hero__dec shop-hero__dec--2"></span>
+        <span class="shop-hero__dec shop-hero__dec--3"></span>
+    </div>
+    <div class="container shop-hero__inner">
+        <div class="shop-hero__left">
+            <div class="shop-hero__breadcrumb">
+                <a href="index.html">Главная</a>
+                <span class="shop-hero__sep">/</span>
+                <span class="shop-hero__current">Вся продукция</span>
+            </div>
+            <h1>Наше Меню</h1>
+            <p>Вкуснейшие блюда на любой вкус — от хрустящей картошечки до сочного шашлыка. Свежие ингредиенты и доставка за 30 минут</p>
+        </div>
+        <div class="shop-hero__image">
+            <img src="img/hero-food.png" alt="Наше Меню">
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SHOP SECTION ==================== -->
+<section class="shop-section">
+    <div class="container">
+
+        <!-- Toolbar -->
+        <div class="shop-toolbar">
+            <div class="shop-toolbar__left">
+                <button class="filter-btn" id="filterBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/>
+                    </svg>
+                    Фильтр
+                </button>
+                <span class="shop-toolbar__count">Показано 6 товаров</span>
+            </div>
+            <div class="shop-toolbar__right">
+                <label class="shop-toolbar__label">Сортировка:</label>
+                <select class="shop-toolbar__select">
+                    <option>По умолчанию</option>
+                    <option>По цене ↑</option>
+                    <option>По цене ↓</option>
+                    <option>По рейтингу</option>
+                    <option>По названию</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products">
+
+            <!-- 1. Жареная картошечка -->
+            <div class="product-card">
+                <div class="product-card__img-wrap">
+                    <img src="img/potatoes.png" alt="Жареная картошечка">
+                    <span class="product-card__badge">Хит продаж</span>
+                    <button class="product-card__fav" aria-label="В избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="product-card__body">
+                    <div class="product-card__stars">★★★★★</div>
+                    <h3 class="product-card__name">Жареная картошечка</h3>
+                    <p class="product-card__desc">Хрустящая золотистая картошечка, обжаренная до идеальной корочки. Подаётся с чесночным соусом и свежей зеленью — классика, которую обожают все</p>
+                    <div class="product-card__footer">
+                        <span class="product-card__price">320 ₽</span>
+                        <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Салат Цезарь -->
+            <div class="product-card">
+                <div class="product-card__img-wrap">
+                    <img src="img/caesar-salad.png" alt="Салат Цезарь">
+                    <span class="product-card__badge product-card__badge--new">Новинка</span>
+                    <button class="product-card__fav" aria-label="В избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="product-card__body">
+                    <div class="product-card__stars">★★★★★</div>
+                    <h3 class="product-card__name">Салат Цезарь</h3>
+                    <p class="product-card__desc">Свежий романо, хрустящие гренки, тёртый пармезан и нежный соус цезарь домашнего приготовления. Добавляем куриную грудку гриль по вашему желанию</p>
+                    <div class="product-card__footer">
+                        <span class="product-card__price">490 ₽</span>
+                        <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Шаверма -->
+            <div class="product-card">
+                <div class="product-card__img-wrap">
+                    <img src="img/shawarma.png" alt="Шаверма">
+                    <span class="product-card__badge">Хит продаж</span>
+                    <button class="product-card__fav" aria-label="В избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="product-card__body">
+                    <div class="product-card__stars">★★★★★</div>
+                    <h3 class="product-card__name">Шаверма</h3>
+                    <p class="product-card__desc">Сочная мясная начинка из маринованной баранины и курицы со свежими овощами, укропом и фирменным чесночным соусом в тонком лаваше</p>
+                    <div class="product-card__footer">
+                        <span class="product-card__price">350 ₽</span>
+                        <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Суп -->
+            <div class="product-card">
+                <div class="product-card__img-wrap">
+                    <img src="img/soup.png" alt="Суп">
+                    <span class="product-card__badge product-card__badge--hot">Горячее</span>
+                    <button class="product-card__fav" aria-label="В избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="product-card__body">
+                    <div class="product-card__stars">★★★★</div>
+                    <h3 class="product-card__name">Суп домашний</h3>
+                    <p class="product-card__desc">Наваристый суп на говяжьем бульоне с картофелем, морковью, луком и свежей зеленью. Готовится по бабушкиному рецепту — согревает душу и тело</p>
+                    <div class="product-card__footer">
+                        <span class="product-card__price">280 ₽</span>
+                        <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Бургер -->
+            <div class="product-card">
+                <div class="product-card__img-wrap">
+                    <img src="img/burger.png" alt="Бургер">
+                    <span class="product-card__badge product-card__badge--hot">Остренький</span>
+                    <button class="product-card__fav" aria-label="В избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="product-card__body">
+                    <div class="product-card__stars">★★★★★</div>
+                    <h3 class="product-card__name">Бургер классический</h3>
+                    <p class="product-card__desc">Двойная котлета из мраморной говядины, маринованные огурчики, свежий салат, томат и фирменный соус на кунжутной булочке с кунжутом</p>
+                    <div class="product-card__footer">
+                        <span class="product-card__price">520 ₽</span>
+                        <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Шашлык -->
+            <div class="product-card">
+                <div class="product-card__img-wrap">
+                    <img src="img/shashlik.png" alt="Шашлык">
+                    <span class="product-card__badge">Хит продаж</span>
+                    <button class="product-card__fav" aria-label="В избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="product-card__body">
+                    <div class="product-card__stars">★★★★★</div>
+                    <h3 class="product-card__name">Шашлык</h3>
+                    <p class="product-card__desc">Сочные кусочки свинины, замаринованные в луке со специями и приготовленные на живых углях. Подаётся с маринованным луком, соусом ткемали и лавашом</p>
+                    <div class="product-card__footer">
+                        <span class="product-card__price">680 ₽</span>
+                        <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="shop-pagination">
+            <a href="#" class="shop-pagination__item active">1</a>
+            <a href="#" class="shop-pagination__item">2</a>
+            <a href="#" class="shop-pagination__item">3</a>
+            <a href="#" class="shop-pagination__next">
+                Далее
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>ИНФОРМАЦИЯ</h3>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="#">Блог</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Меню</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ПОПУЛЯРНЫЕ БЛЮДА</h3>
+            <ul>
+                <li><a href="#">Пепперони</a></li>
+                <li><a href="#">Швейцарские грибы</a></li>
+                <li><a href="#">Курица BBQ</a></li>
+                <li><a href="#">Вегетарианская</a></li>
+                <li><a href="#">Ветчина и сыр</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ДРУГОЕ</h3>
+            <ul>
+                <li><a href="#">Оформление заказа</a></li>
+                <li><a href="#">Корзина</a></li>
+                <li><a href="#">Продукт</a></li>
+                <li><a href="#">Наши адреса</a></li>
+                <li><a href="#">Правовая информация</a></li>
+            </ul>
+        </div>
+        <div class="footer-col social-col">
+            <h3>СОЦИАЛЬНЫЕ СЕТИ</h3>
+            <div class="social-icons">
+                <a href="#" class="fb">F</a>
+                <a href="#" class="pt">P</a>
+                <a href="#" class="tw">T</a>
+                <a href="#" class="ig">I</a>
+            </div>
+            <p class="social-text">Подпишитесь и получите эксклюзивные предложения и промокоды</p>
+            <button class="signup-btn">Зарегистрироваться</button>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <a href="#">Политика конфиденциальности</a>
+        <span>|</span>
+        <a href="#">Политика возврата</a>
+        <span>|</span>
+        <a href="#">Cookie политика</a>
+        <span>|</span>
+        <a href="#">Правила и условия</a>
+    </div>
+    <div class="store-buttons">
+        <div class="market">
+            <a class="market__link" href="">
+                <img class="market__img" src="img/hd-google-play-playstore-logo-symbol-png-701751694777134cuw3jc7voo.png" alt="Google Play">
+                Google Play
+            </a>
+            <a class="market__link" href="">
+                <img class="market__img" src="img/appstore.png" alt="App Store">
+                AppStore
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="jaba.js"></script>
+</body>
+</html>
