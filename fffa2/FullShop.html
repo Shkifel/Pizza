@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наше Меню — Пицца Мигом</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+      <img src="logo.png">
+      <span>Пицца Мигом</span>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav" id="navMenu">
+      <ul class="header_menu">
+        <li><a href="index.html">Главная</a></li>
+
+        <li class="dropdown menu-dropdown">
+          <a href="FullShop.html" class="active">Всё меню</a>
+          <ul class="dropdown-menu mega-menu">
+            <li class="dropdown-title">Пицца</li>
+            <li><a href="#pizza">Пицца сырная</a></li>
+            <li><a href="#pizza">Пицца джамбо</a></li>
+            <li><a href="#pizza">Пицца мясная</a></li>
+            <li><a href="#pizza">Пицца пепперони</a></li>
+            <li><a href="#pizza">Пицца гавайская</a></li>
+
+            <li class="dropdown-title">Салаты</li>
+            <li><a href="#salads">Салат Цезарь</a></li>
+            <li><a href="#salads">Греческий салат</a></li>
+            <li><a href="#salads">Оливье</a></li>
+            <li><a href="#salads">Окрошка</a></li>
+
+            <li class="dropdown-title">Вторые блюда</li>
+            <li><a href="#main-dishes">Шашлык</a></li>
+            <li><a href="#main-dishes">Бургер классический</a></li>
+            <li><a href="#main-dishes">Шаверма</a></li>
+            <li><a href="#main-dishes">Суп домашний</a></li>
+            <li><a href="#main-dishes">Курица BBQ</a></li>
+
+            <li class="dropdown-title">Закуски</li>
+            <li><a href="#snacks">Картофель фри</a></li>
+            <li><a href="#snacks">Картофель по-деревенски</a></li>
+            <li><a href="#snacks">Швейцарские грибы</a></li>
+
+            <li class="dropdown-title">Напитки</li>
+            <li><a href="#drinks">Кола</a></li>
+            <li><a href="#drinks">Лимонад</a></li>
+            <li><a href="#drinks">Морс</a></li>
+            <li><a href="#drinks">Сок апельсиновый</a></li>
+            <li><a href="#drinks">Холодный чай</a></li>
+            <li><a href="#drinks">Вода</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#about">О нас</a></li>
+        <li class="dropdown">
+          <a href="#">Контакты</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Телефон</a></li>
+            <li><a href="#">Адрес</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="icons">
+      <span>
+        <img class="search" src="img/free-icon-search-7079548.png" alt="Search">
+      </span>
+      <span class="cart-open" id="cartOpen" title="Открыть корзину">
+        <img class="search" src="img/free-icon-shopping-cart-commercial-interface-symbol-outline-40368.png" alt="Cart">
+        <b id="cartCount">0</b>
+      </span>
+    </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ==================== CART MODAL ==================== -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-modal__box">
+        <button class="cart-modal__close" id="cartClose" aria-label="Закрыть корзину">×</button>
+        <h2>Ваша корзина</h2>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total">
+            <span>Итого:</span>
+            <strong id="cartTotal">0 ₽</strong>
+        </div>
+        <button class="cart-checkout">Оформить заказ</button>
+    </div>
+</div>
+
+<!-- ==================== HERO BANNER ==================== -->
+<section class="shop-hero">
+    <div class="shop-hero__bg">
+        <span class="shop-hero__dec shop-hero__dec--1"></span>
+        <span class="shop-hero__dec shop-hero__dec--2"></span>
+        <span class="shop-hero__dec shop-hero__dec--3"></span>
+    </div>
+    <div class="container shop-hero__inner">
+        <div class="shop-hero__left">
+            <div class="shop-hero__breadcrumb">
+                <a href="index.html">Главная</a>
+                <span class="shop-hero__sep">/</span>
+                <span class="shop-hero__current">Вся продукция</span>
+            </div>
+            <h1>Наше Меню</h1>
+            <p>Вкуснейшие блюда на любой вкус — от хрустящей картошечки до сочного шашлыка. Свежие ингредиенты и доставка за 30 минут</p>
+        </div>
+        <div class="shop-hero__image">
+            <img src="img/hero-food.png" alt="Наше Меню">
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SHOP SECTION ==================== -->
+<section class="shop-section">
+    <div class="container">
+        <div class="shop-toolbar">
+            <div class="shop-toolbar__left">
+                <button class="filter-btn" id="filterBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/>
+                    </svg>
+                    Фильтр
+                </button>
+                <span class="shop-toolbar__count">Показано 27 товаров</span>
+            </div>
+            <div class="shop-toolbar__right">
+                <label class="shop-toolbar__label" for="sortSelect">Сортировка:</label>
+                <select class="shop-toolbar__select" id="sortSelect">
+                    <option value="default">По умолчанию</option>
+                    <option value="price-asc">По цене ↑</option>
+                    <option value="price-desc">По цене ↓</option>
+                    <option value="rating">По рейтингу</option>
+                    <option value="name">По названию</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="page-products active" data-page="1">
+            <div class="menu-category" id="pizza">
+                <h2 class="menu-category__title">Пицца</h2>
+                <div class="category-products">
+                    <div class="product-card" data-price="1500" data-rating="5" data-name="Пицца сырная">
+                    <div class="product-card__img-wrap">
+                        <img src="img/pizza-cheese_2018-08-31_17-19-07.png" alt="Пицца сырная">
+                        <span class="product-card__badge ">Хит продаж</span>
+      
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Пицца сырная</h3>
+                        <p class="product-card__desc">Тянущаяся моцарелла, брынза, эдам и дор блю на нежном тесте.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">1500 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="2000" data-rating="5" data-name="Пицца джамбо">
+                    <div class="product-card__img-wrap">
+                        <img src="img/pizza-svoya_2018-08-31_17-31-16.png" alt="Пицца джамбо">
+                        
+                       
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Пицца джамбо</h3>
+                        <p class="product-card__desc">Сытная пицца с беконом, пепперони, ветчиной, оливками и орегано.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">2000 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="2300" data-rating="5" data-name="Пицца мясная">
+                    <div class="product-card__img-wrap">
+                        <img src="img/pizza_myaso_2018-08-31_16-56-37.jpg" alt="Пицца мясная">
+                        <span class="product-card__badge ">Популярное</span>
+                        
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Пицца мясная</h3>
+                        <p class="product-card__desc">Курица, ветчина, пепперони, чоризо и моцарелла с сырным соусом.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">2300 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="1200" data-rating="5" data-name="Пицца пепперони">
+                    <div class="product-card__img-wrap">
+                        <img src="img/pepperoni.jpeg" alt="Пицца пепперони">
+                        
+                     
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Пицца пепперони</h3>
+                        <p class="product-card__desc">Классика с томатным соусом, пикантной пепперони и расплавленным сыром.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">1200 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="1900" data-rating="4" data-name="Пицца гавайская">
+                    <div class="product-card__img-wrap">
+                        <img src="img/gavai.jpg" alt="Пицца гавайская">
+                        <span class="product-card__badge product-card__badge--new">Новинка</span>
+                        
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Пицца гавайская</h3>
+                        <p class="product-card__desc">Курица, ананасы, моцарелла и фирменный сливочный соус альфредо.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">1900 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="menu-category" id="salads">
+                <h2 class="menu-category__title">Салаты</h2>
+                <div class="category-products">
+                    <div class="product-card" data-price="490" data-rating="5" data-name="Салат Цезарь">
+                    <div class="product-card__img-wrap">
+                        <img src="img/caesar-salad.png" alt="Салат Цезарь">
+                        <span class="product-card__badge product-card__badge--new">Новинка</span>
+                 
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Салат Цезарь</h3>
+                        <p class="product-card__desc">Свежий романо, хрустящие гренки, пармезан и домашний соус цезарь.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">490 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="430" data-rating="4" data-name="Греческий салат">
+                    <div class="product-card__img-wrap">
+                        <img src="img/greek-salad.png" alt="Греческий салат">
+                        
+                      
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Греческий салат</h3>
+                        <p class="product-card__desc">Огурцы, томаты, перец, маслины и сыр фета с оливковым маслом.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">430 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="390" data-rating="4" data-name="Оливье">
+                    <div class="product-card__img-wrap">
+                        <img src="img/olivier.png" alt="Оливье">
+                        
+                     
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Оливье</h3>
+                        <p class="product-card__desc">Классический салат с картофелем, яйцом, овощами и нежной заправкой.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">390 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="360" data-rating="4" data-name="Окрошка">
+                    <div class="product-card__img-wrap">
+                        <img src="img/okroshka.png" alt="Окрошка">
+                        <span class="product-card__badge product-card__badge--new">Лето</span>
+                     
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Окрошка</h3>
+                        <p class="product-card__desc">Лёгкая холодная окрошка с овощами, зеленью и освежающей основой.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">360 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-products" data-page="2">
+            <div class="menu-category" id="main-dishes">
+                <h2 class="menu-category__title">Вторые блюда</h2>
+                <div class="category-products">
+                    <div class="product-card" data-price="680" data-rating="5" data-name="Шашлык">
+                    <div class="product-card__img-wrap">
+                        <img src="img/shashlik.png" alt="Шашлык">
+                        <span class="product-card__badge ">Хит продаж</span>
+                      
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Шашлык</h3>
+                        <p class="product-card__desc">Сочная свинина на углях с маринованным луком, лавашом и соусом.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">680 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="520" data-rating="5" data-name="Бургер классический">
+                    <div class="product-card__img-wrap">
+                        <img src="img/burger.png" alt="Бургер классический">
+                        <span class="product-card__badge product-card__badge--hot">Остренький</span>
+                       
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Бургер классический</h3>
+                        <p class="product-card__desc">Котлета из говядины, свежий салат, томат и фирменный соус.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">520 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="350" data-rating="5" data-name="Шаверма">
+                    <div class="product-card__img-wrap">
+                        <img src="img/shawarma.png" alt="Шаверма">
+                        
+                        
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Шаверма</h3>
+                        <p class="product-card__desc">Сочная начинка с овощами, зеленью и чесночным соусом в лаваше.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">350 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="280" data-rating="4" data-name="Суп домашний">
+                    <div class="product-card__img-wrap">
+                        <img src="img/soup.png" alt="Суп домашний">
+                        <span class="product-card__badge product-card__badge--hot">Горячее</span>
+                        
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Суп домашний</h3>
+                        <p class="product-card__desc">Наваристый суп с картофелем, морковью, луком и свежей зеленью.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">280 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="560" data-rating="5" data-name="Курица BBQ">
+                    <div class="product-card__img-wrap">
+                        <img src="img/bbq-chicken.png" alt="Курица BBQ">
+                        <span class="product-card__badge ">Популярное</span>
+                     
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Курица BBQ</h3>
+                        <p class="product-card__desc">Сочная курица в насыщенном BBQ соусе с лёгкой дымной ноткой.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">560 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="menu-category" id="snacks">
+                <h2 class="menu-category__title">Закуски</h2>
+                <div class="category-products">
+                    <div class="product-card" data-price="320" data-rating="5" data-name="Картофель фри">
+                    <div class="product-card__img-wrap">
+                        <img src="img/potatoes.png" alt="Картофель фри">
+                        <span class="product-card__badge ">Хит продаж</span>
+                        
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Картофель фри</h3>
+                        <p class="product-card__desc">Хрустящий золотистый картофель с солью, зеленью и чесночным соусом.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">320 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="340" data-rating="5" data-name="Картофель по-деревенски">
+                    <div class="product-card__img-wrap">
+                        <img src="img/rustic-potatoes.png" alt="Картофель по-деревенски">
+                        
+                        
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Картофель по-деревенски</h3>
+                        <p class="product-card__desc">Ароматные картофельные дольки со специями и румяной хрустящей корочкой.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">340 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="610" data-rating="4" data-name="Швейцарские грибы">
+                    <div class="product-card__img-wrap">
+                        <img src="img/swiss-mushrooms.png" alt="Швейцарские грибы">
+                        <span class="product-card__badge product-card__badge--new">Новинка</span>
+                       
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Швейцарские грибы</h3>
+                        <p class="product-card__desc">Нежные грибы со сливочным соусом, сыром и свежей зеленью.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">610 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="menu-category" id="drinks">
+                <h2 class="menu-category__title">Напитки</h2>
+                <div class="category-products">
+                    <div class="product-card" data-price="150" data-rating="5" data-name="Кола">
+                    <div class="product-card__img-wrap">
+                        <img src="img/cola.png" alt="Кола">
+                        
+                      
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Кола</h3>
+                        <p class="product-card__desc">Освежающая газированная кола к пицце, бургеру и горячим блюдам.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">150 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="170" data-rating="5" data-name="Лимонад">
+                    <div class="product-card__img-wrap">
+                        <img src="img/lemonade.png" alt="Лимонад">
+                        <span class="product-card__badge product-card__badge--new">Освежает</span>
+                       
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Лимонад</h3>
+                        <p class="product-card__desc">Домашний лимонад с цитрусом, льдом и приятной свежей кислинкой.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">170 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="160" data-rating="4" data-name="Морс">
+                    <div class="product-card__img-wrap">
+                        <img src="img/mors.png" alt="Морс">
+                        
+                       
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Морс</h3>
+                        <p class="product-card__desc">Ягодный морс с натуральным вкусом и лёгкой приятной сладостью.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">160 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="180" data-rating="5" data-name="Сок апельсиновый">
+                    <div class="product-card__img-wrap">
+                        <img src="img/orange-juice.png" alt="Сок апельсиновый">
+                        
+                     
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Сок апельсиновый</h3>
+                        <p class="product-card__desc">Яркий апельсиновый сок с насыщенным фруктовым вкусом.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">180 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="170" data-rating="4" data-name="Холодный чай">
+                    <div class="product-card__img-wrap">
+                        <img src="img/ice-tea.png" alt="Холодный чай">
+                        
+                       
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★</div>
+                        <h3 class="product-card__name">Холодный чай</h3>
+                        <p class="product-card__desc">Прохладный чай с мягким вкусом и освежающим послевкусием.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">170 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div><div class="product-card" data-price="100" data-rating="5" data-name="Вода">
+                    <div class="product-card__img-wrap">
+                        <img src="img/water.png" alt="Вода">
+                        
+                        
+                    </div>
+                    <div class="product-card__body">
+                        <div class="product-card__stars">★★★★★</div>
+                        <h3 class="product-card__name">Вода</h3>
+                        <p class="product-card__desc">Чистая питьевая вода без газа для любого заказа.</p>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">100 ₽</span>
+                            <button class="product-card__btn">ЗАКАЗАТЬ</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-pagination">
+            <a href="#" class="shop-pagination__item active" data-page-btn="1">1</a>
+            <a href="#" class="shop-pagination__item" data-page-btn="2">2</a>
+            <a href="#" class="shop-pagination__next" data-page-next>
+                Далее
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" id="about">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>ИНФОРМАЦИЯ</h3>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="#">Блог</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Меню</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ПОПУЛЯРНЫЕ БЛЮДА</h3>
+            <ul>
+                <li><a href="#">Пепперони</a></li>
+                <li><a href="#">Швейцарские грибы</a></li>
+                <li><a href="#">Курица BBQ</a></li>
+                <li><a href="#">Вегетарианская</a></li>
+                <li><a href="#">Ветчина и сыр</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ДРУГОЕ</h3>
+            <ul>
+                <li><a href="#">Оформление заказа</a></li>
+                <li><a href="#">Корзина</a></li>
+                <li><a href="#">Продукт</a></li>
+                <li><a href="#">Наши адреса</a></li>
+                <li><a href="#">Правовая информация</a></li>
+            </ul>
+        </div>
+        <div class="footer-col social-col">
+            <h3>СОЦИАЛЬНЫЕ СЕТИ</h3>
+            <div class="social-icons">
+                <a href="#" class="fb">F</a>
+                <a href="#" class="pt">P</a>
+                <a href="#" class="tw">T</a>
+                <a href="#" class="ig">I</a>
+            </div>
+            <p class="social-text">Подпишитесь и получите эксклюзивные предложения и промокоды</p>
+            <button class="signup-btn">Зарегистрироваться</button>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <a href="#">Политика конфиденциальности</a>
+        <span>|</span>
+        <a href="#">Политика возврата</a>
+        <span>|</span>
+        <a href="#">Cookie политика</a>
+        <span>|</span>
+        <a href="#">Правила и условия</a>
+    </div>
+    <div class="store-buttons">
+        <div class="market">
+            <a class="market__link" href="">
+                <img class="market__img" src="img/hd-google-play-playstore-logo-symbol-png-701751694777134cuw3jc7voo.png" alt="Google Play">
+                Google Play
+            </a>
+            <a class="market__link" href="">
+                <img class="market__img" src="img/appstore.png" alt="App Store">
+                AppStore
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="jaba.js"></script>
+</body>
+</html>
