@@ -158,44 +158,6 @@ if (cartModal) {
   });
 }
 
-function showPage(page) {
-  const targetPage = document.querySelector(`.page-products[data-page="${page}"]`);
-  if (!targetPage) return;
-
-  document.querySelectorAll('.page-products').forEach(block => block.classList.remove('active'));
-  targetPage.classList.add('active');
-
-  document.querySelectorAll('[data-page-btn]').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.pageBtn === String(page));
-  });
-
-  if (sortSelect) sortProducts(sortSelect.value);
-
-  const section = document.querySelector('.shop-section');
-  if (section) {
-    window.scrollTo({ top: section.offsetTop - 80, behavior: 'smooth' });
-  }
-}
-
-document.querySelectorAll('[data-page-btn]').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    showPage(btn.dataset.pageBtn);
-  });
-});
-
-const nextBtn = document.querySelector('[data-page-next]');
-if (nextBtn) {
-  nextBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const active = document.querySelector('.page-products.active');
-    const current = Number(active?.dataset.page || 1);
-    const pages = [...document.querySelectorAll('.page-products')].map(p => Number(p.dataset.page));
-    const maxPage = Math.max(...pages);
-    showPage(current >= maxPage ? 1 : current + 1);
-  });
-}
-
 function sortProducts(type) {
   const activePage = document.querySelector('.page-products.active');
   if (!activePage || type === 'default') return;
@@ -233,23 +195,16 @@ bindCartButtons();
 updateCart();
 
 // Обработка перехода по хэшу (якорной ссылке),
-// чтобы открывать скрытые страницы меню и плавно скроллить с учетом шапки.
+// чтобы плавно скроллить с учетом шапки.
 function checkHashAndSwitchPage() {
   const hash = window.location.hash;
   if (!hash) return;
   const target = document.querySelector(hash);
   if (target) {
-    const pageBlock = target.closest('.page-products');
-    if (pageBlock && pageBlock.dataset.page) {
-      const activePage = document.querySelector('.page-products.active');
-      if (!activePage || activePage.dataset.page !== pageBlock.dataset.page) {
-        showPage(pageBlock.dataset.page); // Переключаем на нужную вкладку
-      }
-      setTimeout(() => {
-        const y = target.getBoundingClientRect().top + window.scrollY - 100;
-        window.scrollTo({ top: y, behavior: 'smooth' }); // Скроллим прямо к категории
-      }, 100);
-    }
+    setTimeout(() => {
+      const y = target.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' }); // Скроллим прямо к категории
+    }, 100);
   }
 }
 window.addEventListener('DOMContentLoaded', checkHashAndSwitchPage);

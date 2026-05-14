@@ -301,8 +301,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="page-products" data-page="2">
             <div class="menu-category" id="main-dishes">
                 <h2 class="menu-category__title">Вторые блюда</h2>
                 <div class="category-products">
@@ -536,17 +534,6 @@
         <div id="noProductsMessage" style="display: none; text-align: center; padding: 40px 0; font-size: 20px; color: #555; font-weight: 500;">
             Товаров в данной ценовой категории не найдено.
         </div>
-
-        <div class="shop-pagination">
-            <a href="#" class="shop-pagination__item active" data-page-btn="1">1</a>
-            <a href="#" class="shop-pagination__item" data-page-btn="2">2</a>
-            <a href="#" class="shop-pagination__next" data-page-next>
-                Далее
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="9 18 15 12 9 6"/>
-                </svg>
-            </a>
-        </div>
     </div>
 </section>
 
@@ -578,7 +565,7 @@
     </div>
 </footer>
 
-<script src="jaba.js"></script>
+<script src="script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Модалка оформления заказа
@@ -599,17 +586,20 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutClose.addEventListener('click', () => checkoutModal.style.display = 'none');
     }
 
+    const phoneInput = document.getElementById('phoneNumber');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            let val = this.value.replace(/[^\d]/g, '');
+            if (val.startsWith('7') || val.startsWith('8')) val = val.substring(1);
+            this.value = '+7' + val;
+        });
+    }
+
     if(submitOrderBtn) {
         submitOrderBtn.addEventListener('click', () => {
-            const cardNumber = document.getElementById('cardNumber').value.replace(/\D/g, ''); // убираем всё кроме цифр
-            const cardExpiry = document.getElementById('cardExpiry').value.trim();
-            const cardCvv = document.getElementById('cardCvv').value.trim();
-            const phoneNumber = document.getElementById('phoneNumber').value.trim();
-
-            // Проверяем, что в номере карты ровно 16 цифр и другие поля не пусты
-            if (cardNumber.length !== 16 || !cardExpiry || !cardCvv || !phoneNumber) {
-                alert('Неправильно заполненные данные');
-                return; // Останавливаем выполнение, если есть ошибка
+            if (phoneInput.value.length < 12) {
+                alert('Пожалуйста, введите корректный номер телефона');
+                return;
             }
 
             alert('Спасибо за заказ! Мы свяжемся с вами в ближайшее время.');
