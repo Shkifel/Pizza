@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас — Пицца Мигом</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .about-hero {
+            padding: 140px 0 60px;
+            text-align: center;
+            background: #f8f7f2;
+        }
+        .about-hero h1 { font-size: 48px; color: #1a1a1a; margin-bottom: 20px; font-weight: 800; }
+        .about-hero p { font-size: 18px; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        .about-content {
+            padding: 80px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+        .about-block { display: flex; gap: 50px; align-items: center; }
+        .about-block:nth-child(even) { flex-direction: row-reverse; }
+        .about-block img { width: 50%; border-radius: 20px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .about-block-text { width: 50%; }
+        .about-block-text h2 { font-size: 32px; margin-bottom: 20px; color: #c0392b; font-weight: 700; }
+        .about-block-text p { font-size: 16px; color: #555; line-height: 1.8; margin-bottom: 15px; }
+        
+        @media (max-width: 900px) {
+            .about-block, .about-block:nth-child(even) { flex-direction: column; }
+            .about-block img, .about-block-text { width: 100%; }
+            .about-hero h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <a href="index.html" class="logo">
+      <img src="img/logo.jpg" alt="Логотип">
+      <span>Пицца Мигом</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="navMenu">
+      <ul class="header_menu">
+        <li><a href="FullShop.html">Всё меню</a></li>
+        <li><a href="AboutUs.html" class="active">О нас</a></li>
+        <li><a href="Contacts.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <div class="icons">
+      <span class="cart-open" id="cartOpen" title="Открыть корзину">
+        <img class="search" src="img/free-icon-shopping-cart-commercial-interface-symbol-outline-40368.png" alt="Cart">
+        <b id="cartCount">0</b>
+      </span>
+    </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ==================== CART MODAL ==================== -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-modal__box">
+        <button class="cart-modal__close" id="cartClose" aria-label="Закрыть корзину">×</button>
+        <h2>Ваша корзина</h2>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total">
+            <span>Итого:</span>
+            <strong id="cartTotal">0 ₽</strong>
+        </div>
+        <button class="cart-checkout" id="cartCheckoutBtn">Оформить заказ</button>
+    </div>
+</div>
+
+<!-- ==================== CHECKOUT MODAL ==================== -->
+<div class="checkout-modal" id="checkoutModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div class="checkout-modal__box" style="background: #fff; padding: 25px; border-radius: 8px; width: 360px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+        <button class="checkout-modal__close" id="checkoutClose" style="float: right; border: none; background: transparent; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
+        <h2 style="margin-bottom: 20px; font-size: 20px;">Оформление заказа</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 600;">Реквизиты</h3>
+            <input type="text" id="cardNumber" placeholder="Номер карты" maxlength="19" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="cardExpiry" placeholder="Дата действия (00/00)" maxlength="5" style="width: 60%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+                <input type="text" id="cardCvv" placeholder="CVV (000)" maxlength="3" style="width: 40%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            </div>
+            <input type="text" id="phoneNumber" placeholder="Ваш номер телефона" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            <button id="submitOrderBtn" style="width: 100%; padding: 12px; background: #ffca28; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px;">Оплатить заказ</button>
+        </div>
+    </div>
+</div>
+
+<!-- Основной контент страницы О нас -->
+<section class="about-hero">
+    <div class="container">
+        <h1>Наша история</h1>
+        <p>Пицца Мигом — это вкус, качество и скорость, проверенные временем. Узнайте, как мы стали вашей любимой пиццерией.</p>
+    </div>
+</section>
+
+<section class="about-content container">
+    <div class="about-block">
+        <img src="img/11d29b0f4608850eefa01a0335d4e7c0.png" alt="Как всё начиналось">
+        <div class="about-block-text">
+            <h2>С чего всё начиналось?</h2>
+            <p>Всё началось с небольшой семейной пиццерии, где каждый ингредиент подбирался с особой любовью. Мы всегда верили, что секрет идеальной пиццы кроется в простых вещах: свежих продуктах, правильном приготовлении теста и искренней заботе о каждом госте.</p>
+            <p>Сегодня «Пицца Мигом» — это удачное сочетание итальянских традиций и современного сервиса, которое изо дня в день вдохновляет тысячи людей.</p>
+        </div>
+    </div>
+    
+    <div class="about-block">
+        <img src="img/pizza_myaso_2018-08-31_16-56-37.jpg" alt="Качество и скорость">
+        <div class="about-block-text">
+            <h2>Качество превыше всего</h2>
+            <p><strong>Мгновенная доставка:</strong> Наше название говорит само за себя. Горячая, ароматная пицца оказывается на вашем столе именно в тот момент, когда вы этого хотите.</p>
+            <p><strong>Свежие ингредиенты:</strong> Мы используем только натуральные овощи, отборное мясо и настоящий тянущийся сыр. Никаких компромиссов, когда речь идет о вкусе!</p>
+            <p><strong>Широкий ассортимент:</strong> Любите ли вы острую Пепперони, нежную Гавайскую или сытные закуски — в нашем меню всегда найдется идеальное блюдо для вашего настроения.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container" style="display: flex; flex-direction: column; align-items: center; gap: 25px; text-align: center;">
+        <ul style="display: flex; gap: 40px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
+            <li><a href="index.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Главная</a></li>
+            <li><a href="AboutUs.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">О нас</a></li>
+            <li><a href="FullShop.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Меню</a></li>
+            <li><a href="Contacts.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Контакты</a></li>
+        </ul>
+        <div style="font-size: 16px; color: #555; line-height: 1.6;">
+            <p style="margin-bottom: 5px;"><strong>Наши адреса:</strong> ул. Физкультурников 2, Миасс</p>
+            <p><strong>Телефон:</strong> <a href="tel:+79226980008" style="color: #c0392b; font-weight: 600; text-decoration: none;">+7 922 698 00 08</a></p>
+        </div>
+    </div>
+    <div class="store-buttons">
+        <div class="market">
+            <a class="market__link" href="https://www.rustore.ru/catalog/app/com.yumasoft.ypos.pizzamigom.customer" target="_blank">
+                <img class="market__img" src="img/hd-google-play-playstore-logo-symbol-png-701751694777134cuw3jc7voo.png" alt="Google Play">
+                Google Play
+            </a>
+            <a class="market__link" href="https://apps.apple.com/us/app/%D0%BF%D0%B8%D1%86%D1%86%D0%B5%D1%80%D0%B8%D1%8F-%D0%BF%D0%B8%D1%86%D1%86%D0%B0-%D0%BC%D0%B8%D0%B3%D0%BE%D0%BC/id1594360768" target="_blank">
+                <img class="market__img" src="img/appstore.png" alt="App Store">
+                AppStore
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="jaba.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cartCheckoutBtn = document.getElementById('cartCheckoutBtn');
+    const checkoutModal = document.getElementById('checkoutModal');
+    const checkoutClose = document.getElementById('checkoutClose');
+    if(cartCheckoutBtn && checkoutModal) {
+        cartCheckoutBtn.addEventListener('click', () => { document.getElementById('cartClose')?.click(); checkoutModal.style.display = 'flex'; });
+    }
+    if(checkoutClose) checkoutClose.addEventListener('click', () => checkoutModal.style.display = 'none');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — Пицца Мигом</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .contact-hero {
+            padding: 140px 0 60px;
+            text-align: center;
+            background: #f8f7f2;
+        }
+        .contact-hero h1 { font-size: 48px; color: #1a1a1a; margin-bottom: 20px; font-weight: 800; }
+        .contact-hero p { font-size: 18px; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        .contact-content {
+            padding: 80px 0;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .contact-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            width: 320px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .contact-card svg { margin-bottom: 20px; }
+        .contact-card h3 { font-size: 22px; color: #c0392b; margin-bottom: 15px; font-weight: 700; }
+        .contact-card p { font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 10px; }
+        .contact-card a { color: #1a1a1a; font-weight: 600; text-decoration: none; transition: color 0.2s; font-size: 18px; }
+        .contact-card a:hover { color: #f5a623; }
+
+        @media (max-width: 900px) {
+            .contact-hero h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <a href="index.html" class="logo">
+      <img src="img/logo.jpg" alt="Логотип">
+      <span>Пицца Мигом</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="navMenu">
+      <ul class="header_menu">
+        <li><a href="FullShop.html">Всё меню</a></li>
+        <li><a href="AboutUs.html">О нас</a></li>
+        <li><a href="Contacts.html" class="active">Контакты</a></li>
+      </ul>
+    </nav>
+    <div class="icons">
+      <span class="cart-open" id="cartOpen" title="Открыть корзину">
+        <img class="search" src="img/free-icon-shopping-cart-commercial-interface-symbol-outline-40368.png" alt="Cart">
+        <b id="cartCount">0</b>
+      </span>
+    </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ==================== CART MODAL ==================== -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-modal__box">
+        <button class="cart-modal__close" id="cartClose" aria-label="Закрыть корзину">×</button>
+        <h2>Ваша корзина</h2>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total">
+            <span>Итого:</span>
+            <strong id="cartTotal">0 ₽</strong>
+        </div>
+        <button class="cart-checkout" id="cartCheckoutBtn">Оформить заказ</button>
+    </div>
+</div>
+
+<!-- ==================== CHECKOUT MODAL ==================== -->
+<div class="checkout-modal" id="checkoutModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div class="checkout-modal__box" style="background: #fff; padding: 25px; border-radius: 8px; width: 360px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+        <button class="checkout-modal__close" id="checkoutClose" style="float: right; border: none; background: transparent; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
+        <h2 style="margin-bottom: 20px; font-size: 20px;">Оформление заказа</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 600;">Реквизиты</h3>
+            <input type="text" id="cardNumber" placeholder="Номер карты" maxlength="19" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="cardExpiry" placeholder="Дата действия (00/00)" maxlength="5" style="width: 60%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+                <input type="text" id="cardCvv" placeholder="CVV (000)" maxlength="3" style="width: 40%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            </div>
+            <input type="text" id="phoneNumber" placeholder="Ваш номер телефона" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            <button id="submitOrderBtn" style="width: 100%; padding: 12px; background: #ffca28; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px;">Оплатить заказ</button>
+        </div>
+    </div>
+</div>
+
+<!-- Основной контент страницы Контакты -->
+<section class="contact-hero">
+    <div class="container">
+        <h1>Свяжитесь с нами</h1>
+        <p>У вас есть вопросы, пожелания или вы хотите сделать большой заказ? Мы всегда на связи и готовы помочь!</p>
+    </div>
+</section>
+
+<section class="contact-content container">
+    <div class="contact-card">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <h3>Телефон</h3>
+        <p>Служба доставки и поддержка клиентов:</p>
+        <a href="tel:+78005553535">+7 (800) 555-35-35</a>
+    </div>
+    
+    <div class="contact-card">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <h3>Наши адреса</h3>
+        <p>Забирайте пиццу самовывозом по адресам:</p>
+        <p>ул. Ленина, 45<br>ул. Пушкина, 12</p>
+    </div>
+
+    <div class="contact-card">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <h3>Время работы</h3>
+        <p>Мы работаем без выходных и перерывов на обед:</p>
+        <p><strong>Ежедневно с 10:00 до 23:00</strong></p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>ИНФОРМАЦИЯ</h3>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="AboutUs.html">О нас</a></li>
+                <li><a href="FullShop.html">Меню</a></li>
+                <li><a href="Contacts.html">Контакты</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ПОПУЛЯРНЫЕ БЛЮДА</h3>
+            <ul>
+                <li><a href="FullShop.html#pizza">Пепперони</a></li>
+                <li><a href="FullShop.html#snacks">Швейцарские грибы</a></li>
+                <li><a href="FullShop.html#main-dishes">Курица BBQ</a></li>
+                <li><a href="FullShop.html#pizza">Вегетарианская</a></li>
+                <li><a href="FullShop.html#pizza">Ветчина и сыр</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ДРУГОЕ</h3>
+            <ul>
+                <li><a href="#" onclick="document.getElementById('cartOpen').click(); return false;">Корзина</a></li>
+                <li><a href="index.html#maps">Наши адреса</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="jaba.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cartCheckoutBtn = document.getElementById('cartCheckoutBtn');
+    const checkoutModal = document.getElementById('checkoutModal');
+    const checkoutClose = document.getElementById('checkoutClose');
+    if(cartCheckoutBtn && checkoutModal) {
+        cartCheckoutBtn.addEventListener('click', () => { document.getElementById('cartClose')?.click(); checkoutModal.style.display = 'flex'; });
+    }
+    if(checkoutClose) checkoutClose.addEventListener('click', () => checkoutModal.style.display = 'none');
+});
+</script>
+</body>
+</html>

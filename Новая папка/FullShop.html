@@ -215,21 +215,6 @@
                         </div>
                     </div>
                 </div>
-            <div class="product-card" data-price="1100" data-rating="5" data-name="Пицца Маргарита">
-                <div class="product-card__img-wrap">
-                    <img src="img/margari.jpg" alt="Пицца Маргарита">
-                    <span class="product-card__badge product-card__badge--new">Новинка</span>
-                </div>
-                <div class="product-card__body">
-                    <div class="product-card__stars">★★★★★</div>
-                    <h3 class="product-card__name">Пицца Маргарита</h3>
-                    <p class="product-card__desc">Итальянская классика со свежими томатами, моцареллой и ароматным базиликом.</p>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">1100 ₽</span>
-                        <button class="product-card__btn">ЗАКАЗАТЬ</button>
-                    </div>
-                </div>
-            </div>
                 </div>
             </div>
             <div class="menu-category" id="salads">
@@ -531,10 +516,6 @@
             </div>
         </div>
 
-        <div id="noProductsMessage" style="display: none; text-align: center; padding: 40px 0; font-size: 20px; color: #555; font-weight: 500;">
-            Товаров в данной ценовой категории не найдено.
-        </div>
-
         <div class="shop-pagination">
             <a href="#" class="shop-pagination__item active" data-page-btn="1">1</a>
             <a href="#" class="shop-pagination__item" data-page-btn="2">2</a>
@@ -550,16 +531,32 @@
 
 <!-- ==================== FOOTER ==================== -->
 <footer class="footer" id="about">
-    <div class="footer-container" style="display: flex; flex-direction: column; align-items: center; gap: 25px; text-align: center;">
-        <ul style="display: flex; gap: 40px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
-            <li><a href="index.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Главная</a></li>
-            <li><a href="AboutUs.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">О нас</a></li>
-            <li><a href="FullShop.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Меню</a></li>
-            <li><a href="Contacts.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Контакты</a></li>
-        </ul>
-        <div style="font-size: 16px; color: #555; line-height: 1.6;">
-            <p style="margin-bottom: 5px;"><strong>Наши адреса:</strong> ул. Физкультурников 2, Миасс</p>
-            <p><strong>Телефон:</strong> <a href="tel:+79226980008" style="color: #c0392b; font-weight: 600; text-decoration: none;">+7 922 698 00 08</a></p>
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>ИНФОРМАЦИЯ</h3>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="AboutUs.html">О нас</a></li>
+                    <li><a href="FullShop.html">Меню</a></li>
+                <li><a href="Contacts.html">Контакты</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ПОПУЛЯРНЫЕ БЛЮДА</h3>
+            <ul>
+                    <li><a href="FullShop.html#pizza">Пепперони</a></li>
+                    <li><a href="FullShop.html#snacks">Швейцарские грибы</a></li>
+                    <li><a href="FullShop.html#main-dishes">Курица BBQ</a></li>
+                    <li><a href="FullShop.html#pizza">Вегетарианская</a></li>
+                    <li><a href="FullShop.html#pizza">Ветчина и сыр</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>ДРУГОЕ</h3>
+            <ul>
+                    <li><a href="#" onclick="document.getElementById('cartOpen').click(); return false;">Корзина</a></li>
+                    <li><a href="index.html#maps">Наши адреса</a></li>
+            </ul>
         </div>
     </div>
     <div class="store-buttons">
@@ -635,28 +632,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if(applyFilterBtn) {
         applyFilterBtn.addEventListener('click', () => {
             const maxPrice = parseInt(priceFilter.value, 10);
-            let visibleCount = 0;
-            
-            document.querySelectorAll('.menu-category').forEach(category => {
-                let categoryVisibleCount = 0;
-                category.querySelectorAll('.product-card').forEach(product => {
-                    const price = parseInt(product.getAttribute('data-price'), 10);
-                    if (price <= maxPrice) {
-                        product.style.display = '';
-                        categoryVisibleCount++;
-                        visibleCount++;
-                    } else {
-                        product.style.display = 'none';
-                    }
-                });
-                category.style.display = categoryVisibleCount === 0 ? 'none' : '';
+            document.querySelectorAll('.product-card').forEach(product => {
+                const price = parseInt(product.getAttribute('data-price'), 10);
+                product.style.display = price <= maxPrice ? 'block' : 'none';
             });
-            
-            const noProductsMsg = document.getElementById('noProductsMessage');
-            if (noProductsMsg) {
-                noProductsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
-            }
-            
             filterModal.style.display = 'none';
         });
     }
