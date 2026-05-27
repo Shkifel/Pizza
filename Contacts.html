@@ -98,10 +98,14 @@
                 <input type="radio" name="deliveryMethod" value="pickup" checked> Самовывоз
             </label>
             <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer;">
-                <input type="radio" name="deliveryMethod" value="courier"> Оплата при получении курьером
+                <input type="radio" name="deliveryMethod" value="courier"> Доставка курьером
             </label>
             <h3 style="margin: 0; font-size: 16px; font-weight: 600; margin-top: 5px;">Контактные данные</h3>
             <input type="tel" id="phoneNumber" value="+7" placeholder="+7 (___) ___-__-__" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 12px; cursor: pointer; margin-top: 5px;">
+                <input type="checkbox" id="privacyPolicyCheck" style="margin-top: 2px;">
+                <span>Я даю согласие на <a href="PrivacyPolicy.html" target="_blank" style="color: #c0392b; text-decoration: underline;">обработку персональных данных</a> и соглашаюсь с политикой конфиденциальности</span>
+            </label>
             <button id="submitOrderBtn" style="width: 100%; padding: 12px; background: #ffca28; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px;">Оформить заказ</button>
         </div>
     </div>
@@ -139,7 +143,7 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" style="position: relative;">
     <div class="footer-container" style="display: flex; flex-direction: column; align-items: center; gap: 25px; text-align: center;">
         <ul style="display: flex; gap: 40px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
             <li><a href="index.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Главная</a></li>
@@ -150,8 +154,26 @@
         <div style="font-size: 16px; color: #555; line-height: 1.6;">
             <p style="margin-bottom: 5px;"><strong>Наши адреса:</strong> ул. Физкультурников 2, Миасс</p>
             <p><strong>Телефон:</strong> <a href="tel:+79226980008" style="color: #c0392b; font-weight: 600; text-decoration: none;">+7 922 698 00 08</a></p>
+            <a href="ChestnyZnak.html" class="chestny-znak" style="display: flex; justify-content: center; align-items: center; gap: 10px; text-decoration: none; margin-top: 15px;">
+                <img src="img/znak.png" alt="Честный Знак" style="width: 32px; height: 32px; object-fit: contain;" onerror="this.src='https://via.placeholder.com/32?text=ЧЗ'">
+                <span style="font-size: 14px; font-weight: 600; color: #333; line-height: 1;">Честный Знак</span>
+            </a>
         </div>
     </div>
+
+    <div class="store-buttons">
+        <div class="market">
+            <a class="market__link" href="https://www.rustore.ru/catalog/app/com.yumasoft.ypos.pizzamigom.customer" target="_blank">
+                <img class="market__img" src="img/hd-google-play-playstore-logo-symbol-png-701751694777134cuw3jc7voo.png" alt="Google Play">
+                Google Play
+            </a>
+            <a class="market__link" href="https://apps.apple.com/us/app/%D0%BF%D0%B8%D1%86%D1%86%D0%B5%D1%80%D0%B8%D1%8F-%D0%BF%D0%B8%D1%86%D1%86%D0%B0-%D0%BC%D0%B8%D0%B3%D0%BE%D0%BC/id1594360768" target="_blank">
+                <img class="market__img" src="img/appstore.png" alt="App Store">
+                AppStore
+            </a>
+        </div>
+    </div>
+
 </footer>
 
 <script src="script.js"></script>
@@ -178,6 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
         submitOrderBtn.addEventListener('click', () => {
             if (phoneInput.value.length < 12) {
                 alert('Пожалуйста, введите корректный номер телефона');
+                return;
+            }
+            const privacyCheck = document.getElementById('privacyPolicyCheck');
+            if (privacyCheck && !privacyCheck.checked) {
+                alert('Пожалуйста, дайте согласие на обработку персональных данных');
                 return;
             }
             alert('Спасибо за заказ! Мы свяжемся с вами в ближайшее время.');

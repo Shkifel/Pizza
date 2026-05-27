@@ -3,34 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О нас — Пицца Мигом</title>
+    <title>Честный Знак — Пицца Мигом</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <style>
-        .about-hero {
+        .cz-hero {
             padding: 140px 0 60px;
             text-align: center;
             background: #f8f7f2;
         }
-        .about-hero h1 { font-size: 48px; color: #1a1a1a; margin-bottom: 20px; font-weight: 800; }
-        .about-hero p { font-size: 18px; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; }
-        .about-content {
-            padding: 80px 0;
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-        }
-        .about-block { display: flex; gap: 50px; align-items: center; }
-        .about-block:nth-child(even) { flex-direction: row-reverse; }
-        .about-block img { width: 50%; border-radius: 20px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .about-block-text { width: 50%; }
-        .about-block-text h2 { font-size: 32px; margin-bottom: 20px; color: #c0392b; font-weight: 700; }
-        .about-block-text p { font-size: 16px; color: #555; line-height: 1.8; margin-bottom: 15px; }
+        .cz-hero h1 { font-size: 48px; color: #1a1a1a; margin-bottom: 20px; font-weight: 800; }
+        .cz-hero p { font-size: 18px; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; }
         
+        .cz-content {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cz-content h2 { font-size: 32px; color: #c0392b; margin: 40px 0 20px; font-weight: 700; }
+        .cz-content p { font-size: 16px; color: #555; line-height: 1.8; margin-bottom: 15px; }
+        .cz-content ul { list-style: disc; margin-left: 20px; margin-bottom: 25px; color: #555; font-size: 16px; line-height: 1.8; }
+        .cz-content ul li { margin-bottom: 10px; }
+        
+        .cz-check-block {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .cz-check-block img { max-width: 80px; }
+
         @media (max-width: 900px) {
-            .about-block, .about-block:nth-child(even) { flex-direction: column; }
-            .about-block img, .about-block-text { width: 100%; }
-            .about-hero h1 { font-size: 36px; }
+            .cz-hero h1 { font-size: 36px; }
+            .cz-check-block { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -48,7 +57,7 @@
     <nav class="nav" id="navMenu">
       <ul class="header_menu">
         <li><a href="FullShop.html">Всё меню</a></li>
-        <li><a href="AboutUs.html" class="active">О нас</a></li>
+        <li><a href="AboutUs.html">О нас</a></li>
         <li><a href="Contacts.html">Контакты</a></li>
       </ul>
     </nav>
@@ -99,31 +108,34 @@
     </div>
 </div>
 
-<!-- Основной контент страницы О нас -->
-<section class="about-hero">
+<!-- Основной контент страницы -->
+<section class="cz-hero">
     <div class="container">
-        <h1>Наша история</h1>
-        <p>Пицца Мигом — это вкус, качество и скорость, проверенные временем. Узнайте, как мы стали вашей любимой пиццерией.</p>
+        <h1>Национальная система маркировки</h1>
+        <p>Мы работаем честно. В «Пицца Мигом» соблюдаются все государственные стандарты качества продуктов питания.</p>
     </div>
 </section>
 
-<section class="about-content container">
-    <div class="about-block">
-        <img src="img/11d29b0f4608850eefa01a0335d4e7c0.png" alt="Как всё начиналось">
-        <div class="about-block-text">
-            <h2>С чего всё начиналось?</h2>
-            <p>Всё началось с небольшой семейной пиццерии, где каждый ингредиент подбирался с особой любовью. Мы всегда верили, что секрет идеальной пиццы кроется в простых вещах: свежих продуктах, правильном приготовлении теста и искренней заботе о каждом госте.</p>
-            <p>Сегодня «Пицца Мигом» — это удачное сочетание итальянских традиций и современного сервиса, которое изо дня в день вдохновляет тысячи людей.</p>
-        </div>
-    </div>
-    
-    <div class="about-block">
-        <img src="img/Meat.jpg" alt="Качество и скорость">
-        <div class="about-block-text">
-            <h2>Качество превыше всего</h2>
-            <p><strong>Мгновенная доставка:</strong> Наше название говорит само за себя. Горячая, ароматная пицца оказывается на вашем столе именно в тот момент, когда вы этого хотите.</p>
-            <p><strong>Свежие ингредиенты:</strong> Мы используем только натуральные овощи, отборное мясо и настоящий тянущийся сыр. Никаких компромиссов, когда речь идет о вкусе!</p>
-            <p><strong>Широкий ассортимент:</strong> Любите ли вы острую Пепперони, нежную Гавайскую или сытные закуски — в нашем меню всегда найдется идеальное блюдо для вашего настроения.</p>
+<section class="cz-content container">
+    <h2>Что такое «Честный Знак»?</h2>
+    <p>«Честный Знак» — это национальная система цифровой маркировки и прослеживаемости товаров в России. Её главная цель — гарантировать потребителям подлинность и заявленное качество приобретаемой продукции, а также бороться с нелегальным оборотом и подделками.</p>
+
+    <h2>Как это работает в нашей пиццерии?</h2>
+    <p>Мы несем ответственность за здоровье наших гостей и строго соблюдаем законодательство (Постановление Правительства РФ). Предприятия сектора HoReCa (рестораны, кафе, пиццерии) обязаны передавать данные об использовании маркированных продуктов. У нас под строгим контролем находятся:</p>
+    <ul>
+        <li><strong>Молочная продукция:</strong> Сыр Моцарелла, сырный соус, сливки и другие молочные ингредиенты, которые мы используем для приготовления нашей пиццы, имеют легальное происхождение и проходят проверку.</li>
+        <li><strong>Упакованная вода:</strong> Вся питьевая вода, которую вы можете приобрести к вашему заказу, промаркирована.</li>
+        <li><strong>Безалкогольные напитки:</strong> Сладкие газированные напитки, соки и морсы в потребительской упаковке также передаются в систему маркировки.</li>
+    </ul>
+
+    <h2>Ваша безопасность — наш приоритет</h2>
+    <p>Когда вы делаете заказ в «Пицца Мигом», вы можете быть уверены, что все продукты поступили от надежных и проверенных поставщиков. Коды Data Matrix считываются нашими сотрудниками при приемке товара, что полностью исключает попадание контрафакта на нашу кухню.</p>
+
+    <div class="cz-check-block">
+        <img src="img/chestny-znak.png" alt="QR-код Честный Знак" onerror="this.src='https://via.placeholder.com/80?text=ЧЗ'">
+        <div>
+            <h3 style="margin-top: 0; color: #1a1a1a; font-size: 20px;">Как проверить товар самостоятельно?</h3>
+            <p style="margin-bottom: 0;">Если вы приобретаете у нас воду или напитки в заводской упаковке, вы можете отсканировать уникальный код в виде квадрата (Data Matrix) прямо через бесплатное мобильное приложение «Честный Знак» и узнать всю информацию о производителе, сроке годности и составе.</p>
         </div>
     </div>
 </section>
@@ -146,6 +158,7 @@
             </a>
         </div>
     </div>
+
     <div class="store-buttons">
         <div class="market">
             <a class="market__link" href="https://www.rustore.ru/catalog/app/com.yumasoft.ypos.pizzamigom.customer" target="_blank">

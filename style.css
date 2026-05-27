@@ -554,6 +554,9 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   max-width: 380px;
   margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .pizza-img {
   width: 100%;
@@ -598,6 +601,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin-top: auto;
+  align-self: center;
   transition: background 0.2s ease;
 }
 .order-btn:hover {
@@ -612,6 +617,7 @@ body {
 .swiper-slide {
   display: flex;
   justify-content: center;
+  height: auto !important;
 }
 
 .swiper-button-next,

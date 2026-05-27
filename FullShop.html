@@ -67,10 +67,14 @@
                 <input type="radio" name="deliveryMethod" value="pickup" checked> Самовывоз
             </label>
             <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer;">
-                <input type="radio" name="deliveryMethod" value="courier"> Оплата при получении курьером
+                <input type="radio" name="deliveryMethod" value="courier"> Доставка курьером
             </label>
             <h3 style="margin: 0; font-size: 16px; font-weight: 600; margin-top: 5px;">Контактные данные</h3>
             <input type="tel" id="phoneNumber" value="+7" placeholder="+7 (___) ___-__-__" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;">
+            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 12px; cursor: pointer; margin-top: 5px;">
+                <input type="checkbox" id="privacyPolicyCheck" style="margin-top: 2px;">
+                <span>Я даю согласие на <a href="PrivacyPolicy.html" target="_blank" style="color: #c0392b; text-decoration: underline;">обработку персональных данных</a> и соглашаюсь с политикой конфиденциальности</span>
+            </label>
             <button id="submitOrderBtn" style="width: 100%; padding: 12px; background: #ffca28; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px;">Оформить заказ</button>
         </div>
     </div>
@@ -78,13 +82,28 @@
 
 <!-- ==================== FILTER MODAL ==================== -->
 <div class="filter-modal" id="filterModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-    <div class="filter-modal__box" style="background: #fff; padding: 25px; border-radius: 8px; width: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+    <div class="filter-modal__box" style="background: #fff; padding: 25px; border-radius: 8px; width: 320px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
         <button class="filter-modal__close" id="filterClose" style="float: right; border: none; background: transparent; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
         <h2 style="margin-bottom: 20px; font-size: 20px;">Фильтр товаров</h2>
         <div style="display: flex; flex-direction: column; gap: 15px;">
-            <label style="font-weight: 500; font-size: 14px;">Максимальная цена: <span id="priceValue">3000</span> ₽</label>
-            <input type="range" id="priceFilter" min="0" max="3000" step="50" value="3000" style="width: 100%;">
-            <button id="applyFilterBtn" style="width: 100%; padding: 12px; background: #ffca28; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px;">Применить</button>
+            <label style="font-weight: 500; font-size: 14px;">Мин. цена: <span id="minPriceValue">0</span> ₽</label>
+            <input type="range" id="minPriceFilter" min="0" max="3000" step="50" value="0" style="width: 100%;">
+            
+            <label style="font-weight: 500; font-size: 14px;">Макс. цена: <span id="maxPriceValue">3000</span> ₽</label>
+            <input type="range" id="maxPriceFilter" min="0" max="3000" step="50" value="3000" style="width: 100%;">
+
+            <h3 style="margin: 10px 0 0; font-size: 16px; font-weight: 600;">Особенности</h3>
+            <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer;">
+                <input type="checkbox" id="filterNew"> Новинки
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer;">
+                <input type="checkbox" id="filterPopular"> Популярные
+            </label>
+
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button id="applyFilterBtn" style="flex: 2; padding: 12px; background: #ffca28; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 16px;">Применить</button>
+                <button id="resetFilterBtn" style="flex: 1; padding: 12px; background: #e0e0e0; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 16px;">Сбросить</button>
+            </div>
         </div>
     </div>
 </div>
@@ -144,7 +163,7 @@
                     <div class="product-card" data-price="1500" data-rating="5" data-name="Пицца сырная">
                     <div class="product-card__img-wrap">
                         <img src="img/pizza-cheese_2018-08-31_17-19-07.png" alt="Пицца сырная">
-                        <span class="product-card__badge ">Хит продаж</span>
+                        <span class="product-card__badge ">Популярное</span>
       
                     </div>
                     <div class="product-card__body">
@@ -307,7 +326,7 @@
                     <div class="product-card" data-price="680" data-rating="5" data-name="Шашлык">
                     <div class="product-card__img-wrap">
                         <img src="img/shashlik.png" alt="Шашлык">
-                        <span class="product-card__badge ">Хит продаж</span>
+                        <span class="product-card__badge ">Популярное</span>
                       
                     </div>
                     <div class="product-card__body">
@@ -388,7 +407,7 @@
                     <div class="product-card" data-price="320" data-rating="5" data-name="Картофель фри">
                     <div class="product-card__img-wrap">
                         <img src="img/french_fries.png" alt="Картофель фри">
-                        <span class="product-card__badge ">Хит продаж</span>
+                        <span class="product-card__badge ">Популярное</span>
                         
                     </div>
                     <div class="product-card__body">
@@ -538,7 +557,7 @@
 </section>
 
 <!-- ==================== FOOTER ==================== -->
-<footer class="footer" id="about">
+<footer class="footer" id="about" style="position: relative;">
     <div class="footer-container" style="display: flex; flex-direction: column; align-items: center; gap: 25px; text-align: center;">
         <ul style="display: flex; gap: 40px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;">
             <li><a href="index.html" style="font-size: 18px; font-weight: 600; color: #333; text-decoration: none;">Главная</a></li>
@@ -549,6 +568,10 @@
         <div style="font-size: 16px; color: #555; line-height: 1.6;">
             <p style="margin-bottom: 5px;"><strong>Наши адреса:</strong> ул. Физкультурников 2, Миасс</p>
             <p><strong>Телефон:</strong> <a href="tel:+79226980008" style="color: #c0392b; font-weight: 600; text-decoration: none;">+7 922 698 00 08</a></p>
+            <a href="ChestnyZnak.html" class="chestny-znak" style="display: flex; justify-content: center; align-items: center; gap: 10px; text-decoration: none; margin-top: 15px;">
+                <img src="img/znak.png" alt="Честный Знак" style="width: 32px; height: 32px; object-fit: contain;" onerror="this.src='https://via.placeholder.com/32?text=ЧЗ'">
+                <span style="font-size: 14px; font-weight: 600; color: #333; line-height: 1;">Честный Знак</span>
+            </a>
         </div>
     </div>
     <div class="store-buttons">
@@ -563,6 +586,7 @@
             </a>
         </div>
     </div>
+
 </footer>
 
 <script src="script.js"></script>
@@ -601,6 +625,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Пожалуйста, введите корректный номер телефона');
                 return;
             }
+            const privacyCheck = document.getElementById('privacyPolicyCheck');
+            if (privacyCheck && !privacyCheck.checked) {
+                alert('Пожалуйста, дайте согласие на обработку персональных данных');
+                return;
+            }
 
             alert('Спасибо за заказ! Мы свяжемся с вами в ближайшее время.');
             checkoutModal.style.display = 'none';
@@ -612,8 +641,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterModal = document.getElementById('filterModal');
     const filterClose = document.getElementById('filterClose');
     const applyFilterBtn = document.getElementById('applyFilterBtn');
-    const priceFilter = document.getElementById('priceFilter');
-    const priceValue = document.getElementById('priceValue');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+
+    // Price filters
+    const minPriceFilter = document.getElementById('minPriceFilter');
+    const minPriceValue = document.getElementById('minPriceValue');
+    const maxPriceFilter = document.getElementById('maxPriceFilter');
+    const maxPriceValue = document.getElementById('maxPriceValue');
+
+    // Badge filters
+    const filterNew = document.getElementById('filterNew');
+    const filterPopular = document.getElementById('filterPopular');
+
+    function applyFilters() {
+        const minPrice = parseInt(minPriceFilter.value, 10);
+        const maxPrice = parseInt(maxPriceFilter.value, 10);
+        const showNew = filterNew.checked;
+        const showPopular = filterPopular.checked;
+        
+        let visibleCount = 0;
+        
+        document.querySelectorAll('.menu-category').forEach(category => {
+            let categoryVisibleCount = 0;
+            category.querySelectorAll('.product-card').forEach(product => {
+                const price = parseInt(product.getAttribute('data-price'), 10);
+                
+                // Check badges
+                const isNew = product.querySelector('.product-card__badge--new') !== null;
+                const popularBadge = product.querySelector('.product-card__badge:not(.product-card__badge--new):not(.product-card__badge--hot)');
+                const isPopular = popularBadge && popularBadge.textContent.trim() === 'Популярное';
+
+                // Check price match
+                const priceMatch = price >= minPrice && price <= maxPrice;
+                
+                // Check badge match
+                let badgeMatch = true; // True if no badge filters are selected
+                if (showNew || showPopular) {
+                    badgeMatch = (showNew && isNew) || (showPopular && isPopular);
+                }
+
+                if (priceMatch && badgeMatch) {
+                    product.style.display = '';
+                    categoryVisibleCount++;
+                    visibleCount++;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+            // Hide category title if no products in it are visible
+            category.style.display = categoryVisibleCount === 0 ? 'none' : '';
+        });
+        
+        const noProductsMsg = document.getElementById('noProductsMessage');
+        if (noProductsMsg) {
+            noProductsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+        
+        if (filterModal) filterModal.style.display = 'none';
+    }
+
+    function resetFilters() {
+        if (minPriceFilter) minPriceFilter.value = 0;
+        if (minPriceValue) minPriceValue.textContent = 0;
+        if (maxPriceFilter) maxPriceFilter.value = 3000;
+        if (maxPriceValue) maxPriceValue.textContent = 3000;
+        if (filterNew) filterNew.checked = false;
+        if (filterPopular) filterPopular.checked = false;
+        applyFilters();
+    }
 
     if(filterBtn && filterModal) {
         filterBtn.addEventListener('click', () => filterModal.style.display = 'flex');
@@ -621,36 +716,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if(filterClose) {
         filterClose.addEventListener('click', () => filterModal.style.display = 'none');
     }
-    if(priceFilter && priceValue) {
-        priceFilter.addEventListener('input', (e) => priceValue.textContent = e.target.value);
+    if(minPriceFilter && minPriceValue) {
+        minPriceFilter.addEventListener('input', (e) => minPriceValue.textContent = e.target.value);
+    }
+    if(maxPriceFilter && maxPriceValue) {
+        maxPriceFilter.addEventListener('input', (e) => maxPriceValue.textContent = e.target.value);
     }
     if(applyFilterBtn) {
-        applyFilterBtn.addEventListener('click', () => {
-            const maxPrice = parseInt(priceFilter.value, 10);
-            let visibleCount = 0;
-            
-            document.querySelectorAll('.menu-category').forEach(category => {
-                let categoryVisibleCount = 0;
-                category.querySelectorAll('.product-card').forEach(product => {
-                    const price = parseInt(product.getAttribute('data-price'), 10);
-                    if (price <= maxPrice) {
-                        product.style.display = '';
-                        categoryVisibleCount++;
-                        visibleCount++;
-                    } else {
-                        product.style.display = 'none';
-                    }
-                });
-                category.style.display = categoryVisibleCount === 0 ? 'none' : '';
-            });
-            
-            const noProductsMsg = document.getElementById('noProductsMessage');
-            if (noProductsMsg) {
-                noProductsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
-            }
-            
-            filterModal.style.display = 'none';
-        });
+        applyFilterBtn.addEventListener('click', applyFilters);
+    }
+    if(resetFilterBtn) {
+        resetFilterBtn.addEventListener('click', resetFilters);
     }
 
     // Заглушки для отсутствующих картинок (если пути битые)
