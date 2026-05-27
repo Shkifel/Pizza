@@ -652,6 +652,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Badge filters
     const filterNew = document.getElementById('filterNew');
     const filterPopular = document.getElementById('filterPopular');
+    const productsCountText = document.querySelector('.shop-toolbar__count');
+
+    // Функция для правильного склонения слова "товар"
+    function declension(number, words) {
+        let n = Math.abs(number) % 100;
+        let n1 = n % 10;
+        if (n > 10 && n < 20) return words[2];
+        if (n1 > 1 && n1 < 5) return words[1];
+        if (n1 === 1) return words[0];
+        return words[2];
+    }
 
     function applyFilters() {
         const minPrice = parseInt(minPriceFilter.value, 10);
@@ -697,6 +708,10 @@ document.addEventListener('DOMContentLoaded', () => {
             noProductsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
         }
         
+        if (productsCountText) {
+            productsCountText.textContent = `Показано ${visibleCount} ${declension(visibleCount, ['товар', 'товара', 'товаров'])}`;
+        }
+
         if (filterModal) filterModal.style.display = 'none';
     }
 
@@ -728,6 +743,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if(resetFilterBtn) {
         resetFilterBtn.addEventListener('click', resetFilters);
     }
+
+    // Инициализируем правильное количество при загрузке страницы
+    applyFilters();
 
     // Заглушки для отсутствующих картинок (если пути битые)
     document.querySelectorAll('img').forEach(img => {
