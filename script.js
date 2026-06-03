@@ -278,8 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 finalAddress = 'Самовывоз: ' + (pickupAddr ? pickupAddr.value : '');
             }
 
-            if (phoneInput && phoneInput.value.length < 12) {
-                alert('Пожалуйста, введите корректный номер телефона');
+            const phoneDigits = phoneInput ? phoneInput.value.replace(/\D/g, '') : '';
+            if (phoneInput && phoneDigits.length !== 11) {
+                alert('Пожалуйста, введите корректный номер телефона (должно быть 11 цифр)');
                 return;
             }
             const privacyCheck = document.getElementById('privacyPolicyCheck');

@@ -1478,6 +1478,23 @@ body {
     font-size: 26px;
 }
 
+#cartItems {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+#cartItems::-webkit-scrollbar {
+    width: 6px;
+}
+#cartItems::-webkit-scrollbar-track {
+    background: transparent;
+}
+#cartItems::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 4px;
+}
+
 .cart-items-empty {
     color: #777;
     padding: 15px 0;
