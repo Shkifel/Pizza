@@ -583,14 +583,14 @@
           }
 
           
-          const SUPABASE_URL = 'ТВОЙ_PROJECT_URL'; 
-          const SUPABASE_ANON_KEY = 'ТВОЙ_PUBLISHABLE_KEY';
+    const SUPABASE_URL = 'https://allymvkgifonzmtszafk.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'sb_publishable_yx3r4nfUMo545nof5ytVJA_maYWxW2a';
       
           if(submitOrderBtn) {
             
               submitOrderBtn.addEventListener('click', async () => {
                   
-                  // 1. Стандартные проверки формы и сбор адреса
+               
                   const selectedMethodRadio = document.querySelector('input[name="deliveryMethod"]:checked');
                   let finalAddress = '';
                   
@@ -616,7 +616,7 @@
                       return;
                   }
       
-                  // Достаю товары из корзины (localStorage)
+                
                   const currentCart = JSON.parse(localStorage.getItem('pizzaMigomCart')) || [];
                   if (currentCart.length === 0) {
                       alert('Ваша корзина пуста!');
@@ -632,7 +632,7 @@
                   submitOrderBtn.textContent = 'Отправка...';
                   submitOrderBtn.disabled = true;
       
-                  //Отправляем данные в таблицу orders в Supabase
+              
                   try {
                       const response = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
                           method: 'POST',
@@ -653,14 +653,14 @@
                       if (response.ok) {
                           alert('Спасибо за заказ! Мы свяжемся с вами в ближайшее время.');
                           
-                          // Очищаем корзину после успешной покупки
+                        
                           localStorage.removeItem('pizzaMigomCart');
                           if (typeof updateCart === 'function') {
                               cart = []; 
                               updateCart(); 
                           }
                           
-                          // Закрываем модальное окно
+                     
                           if (checkoutModal) checkoutModal.style.display = 'none';
                       } else {
                           alert('Произошла ошибка при оформлении заказа. Попробуйте еще раз.');
@@ -669,7 +669,7 @@
                       console.error('Ошибка сети:', error);
                       alert('Ошибка соединения с сервером.');
                   } finally {
-                      // Возвращаем кнопку в активное состояние
+                  
                       submitOrderBtn.textContent = originalBtnText;
                       submitOrderBtn.disabled = false;
                   }
