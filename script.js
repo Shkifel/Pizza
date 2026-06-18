@@ -261,8 +261,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const SUPABASE_URL = 'https://allymvkgifonzmtszafk.supabase.co'; 
     const SUPABASE_ANON_KEY = 'sb_publishable_yx3r4nfUMo545nof5ytVJA_maYWxW2a';
 
+    let isSubmitting = false;
+
     if (submitOrderBtn) {
         submitOrderBtn.addEventListener('click', async () => {
+            if (isSubmitting) return;
+
             const selectedMethodRadio = document.querySelector('input[name="deliveryMethod"]:checked');
             let finalAddress = '';
             
@@ -295,6 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            isSubmitting = true;
             const orderContentStr = currentCart.map(item => item.name).join(', ');
             const finalPrice = currentCart.reduce((sum, item) => sum + item.price, 0);
 
@@ -336,6 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Ошибка сети:', error);
                 alert('Ошибка соединения с сервером.');
             } finally {
+                isSubmitting = false;
                 submitOrderBtn.textContent = originalBtnText;
                 submitOrderBtn.disabled = false;
             }

@@ -528,10 +528,9 @@
         </div>
       </div>
 
-      <div style="margin-top: 30px; text-align: center;">
-        <a href="Admin.html" style="color: #999; font-size: 14px; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#999'">Админ-панель</a>
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="Admin.html" style="color: #d1ccbd; font-size: 12px; text-decoration: none;" onmouseover="this.style.color='#c0392b'" onmouseout="this.style.color='#d1ccbd'">Админ-панель</a>
       </div>
-
     </footer>
 
     <script>
@@ -540,145 +539,6 @@
         img.addEventListener('error', function() {
             this.src = 'https://via.placeholder.com/300x200?text=Нет+фото';
         });
-      });
-
-      // Логика оформления заказа для главной страницы
-      document.addEventListener('DOMContentLoaded', () => {
-          const cartCheckoutBtn = document.getElementById('cartCheckoutBtn');
-          const checkoutModal = document.getElementById('checkoutModal');
-          const checkoutClose = document.getElementById('checkoutClose');
-          const submitOrderBtn = document.getElementById('submitOrderBtn');
-          
-          if(cartCheckoutBtn && checkoutModal) {
-              cartCheckoutBtn.addEventListener('click', () => {
-                  const cartCloseBtn = document.getElementById('cartClose');
-                  if(cartCloseBtn) cartCloseBtn.click();
-                  checkoutModal.style.display = 'flex';
-              });
-          }
-          if(checkoutClose) {
-              checkoutClose.addEventListener('click', () => checkoutModal.style.display = 'none');
-          }
-          
-          const deliveryRadios = document.querySelectorAll('input[name="deliveryMethod"]');
-          const pickupContainer = document.getElementById('pickupAddressContainer');
-          const courierContainer = document.getElementById('courierAddressContainer');
-          if (deliveryRadios.length > 0) {
-              deliveryRadios.forEach(radio => {
-                  radio.addEventListener('change', (e) => {
-                      if (e.target.value === 'pickup') {
-                          if (pickupContainer) pickupContainer.style.display = 'flex';
-                          if (courierContainer) courierContainer.style.display = 'none';
-                      } else {
-                          if (pickupContainer) pickupContainer.style.display = 'none';
-                          if (courierContainer) courierContainer.style.display = 'flex';
-                      }
-                  });
-              });
-          }
-          
-          const phoneInput = document.getElementById('phoneNumber');
-          if (phoneInput) {
-              phoneInput.addEventListener('input', function() {
-                  let val = this.value.replace(/[^\d]/g, '');
-                  if (val.startsWith('7') || val.startsWith('8')) val = val.substring(1);
-                  this.value = '+7' + val;
-              });
-          }
-
-          
-    const SUPABASE_URL = 'https://allymvkgifonzmtszafk.supabase.co'; 
-    const SUPABASE_ANON_KEY = 'sb_publishable_yx3r4nfUMo545nof5ytVJA_maYWxW2a';
-      
-          if(submitOrderBtn) {
-            
-              submitOrderBtn.addEventListener('click', async () => {
-                  
-               
-                  const selectedMethodRadio = document.querySelector('input[name="deliveryMethod"]:checked');
-                  let finalAddress = '';
-                  
-                  if (selectedMethodRadio && selectedMethodRadio.value === 'courier') {
-                      const deliveryAddr = document.getElementById('deliveryAddress');
-                      if (deliveryAddr && deliveryAddr.value.trim() === '') {
-                          alert('Пожалуйста, введите адрес доставки');
-                          return;
-                      }
-                      finalAddress = 'Доставка: ' + deliveryAddr.value.trim();
-                  } else {
-                      const pickupAddr = document.getElementById('pickupAddress');
-                      finalAddress = 'Самовывоз: ' + pickupAddr.value;
-                  }
-      
-                  if (phoneInput.value.length < 12) {
-                      alert('Пожалуйста, введите корректный номер телефона');
-                      return;
-                  }
-                  const privacyCheck = document.getElementById('privacyPolicyCheck');
-                  if (privacyCheck && !privacyCheck.checked) {
-                      alert('Пожалуйста, дайте согласие на обработку персональных данных');
-                      return;
-                  }
-      
-                
-                  const currentCart = JSON.parse(localStorage.getItem('pizzaMigomCart')) || [];
-                  if (currentCart.length === 0) {
-                      alert('Ваша корзина пуста!');
-                      return;
-                  }
-      
-                  
-                  const orderContentStr = currentCart.map(item => item.name).join(', ');
-                  const finalPrice = currentCart.reduce((sum, item) => sum + item.price, 0);
-      
-                  
-                  const originalBtnText = submitOrderBtn.textContent;
-                  submitOrderBtn.textContent = 'Отправка...';
-                  submitOrderBtn.disabled = true;
-      
-              
-                  try {
-                      const response = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
-                          method: 'POST',
-                          headers: {
-                              'Content-Type': 'application/json',
-                              'apikey': SUPABASE_ANON_KEY,
-                              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                              'Prefer': 'return=minimal'
-                          },
-                          body: JSON.stringify({
-                              client_number: phoneInput.value,
-                              address: finalAddress,
-                              order_content: orderContentStr,
-                              total_price: finalPrice
-                          })
-                      });
-      
-                      if (response.ok) {
-                          alert('Спасибо за заказ! Мы свяжемся с вами в ближайшее время.');
-                          
-                        
-                          localStorage.removeItem('pizzaMigomCart');
-                          if (typeof updateCart === 'function') {
-                              cart = []; 
-                              updateCart(); 
-                          }
-                          
-                     
-                          if (checkoutModal) checkoutModal.style.display = 'none';
-                      } else {
-                          alert('Произошла ошибка при оформлении заказа. Попробуйте еще раз.');
-                      }
-                  } catch (error) {
-                      console.error('Ошибка сети:', error);
-                      alert('Ошибка соединения с сервером.');
-                  } finally {
-                  
-                      submitOrderBtn.textContent = originalBtnText;
-                      submitOrderBtn.disabled = false;
-                  }
-              });
-          }
       });
     </script>
 </body>

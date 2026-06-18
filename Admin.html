@@ -65,7 +65,17 @@
     </style>
 </head>
 <body>
-    <div class="admin-container" id="app">
+    <div id="loginForm" class="admin-container" style="max-width: 400px; margin-top: 100px;">
+        <h2 style="text-align: center; color: #1a1a1a; margin-top: 0;">Вход в Админ-панель</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+            <input type="text" id="adminUser" placeholder="Имя пользователя" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <input type="password" id="adminPass" placeholder="Пароль" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button onclick="login()" style="padding: 10px; font-size: 16px; background: #ffca28; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Войти</button>
+            <p id="loginError" style="color: red; display: none; text-align: center; margin: 0;">Неверное имя пользователя или пароль</p>
+        </div>
+    </div>
+
+    <div class="admin-container" id="app" style="display: none;">
         <h1>Управление заказами</h1>
         <div id="loading" class="loading">Загрузка заказов...</div>
         <table id="ordersTable" style="display: none;">
@@ -86,11 +96,17 @@
     </div>
 
     <script>
-        // ПРОСТАЯ ЗАЩИТА ПАРОЛЕМ ('admin123'пароль)
-        const password = prompt("Введите пароль администратора:");
-        if (password !== "admin123") {
-            document.body.innerHTML = "<h2 style='text-align:center; color:#e74c3c; margin-top:100px;'>Доступ запрещен. Неверный пароль.</h2>";
-            throw new Error("Access denied");
+        function login() {
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+            
+            if (user === 'Admin1' && pass === '12345asd') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+                fetchOrders();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
         }
 
         // Данные Supabase 
@@ -179,9 +195,6 @@
                 alert("Не удалось отменить заказ. Попробуйте еще раз.");
             }
         }
-
-        // Запуска загрузки сразу после входа
-        fetchOrders();
     </script>
 </body>
 </html>
