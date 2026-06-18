@@ -62,19 +62,30 @@
             font-size: 18px; 
             color: #555; 
         }
+        .status-select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
     </style>
 </head>
 <body>
-    <div id="loginForm" class="admin-container" style="max-width: 400px; margin-top: 100px;">
-        <h2 style="text-align: center; color: #1a1a1a; margin-top: 0;">Вход в Админ-панель</h2>
-        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-            <input type="text" id="adminUser" placeholder="Имя пользователя" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
-            <input type="password" id="adminPass" placeholder="Пароль" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
-            <button onclick="login()" style="padding: 10px; font-size: 16px; background: #ffca28; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">Войти</button>
-            <p id="loginError" style="color: red; display: none; text-align: center; margin: 0;">Неверное имя пользователя или пароль</p>
+    <!-- Форма авторизации -->
+    <div id="loginOverlay" style="position: fixed; inset: 0; background: #f8f7f2; display: flex; align-items: center; justify-content: center; z-index: 10000;">
+        <div style="background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 300px; text-align: center;">
+            <h2 style="margin-top: 0; margin-bottom: 20px;">Вход в систему</h2>
+            <input type="email" id="adminUser" placeholder="Email администратора" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-family: 'Poppins', sans-serif;">
+            <input type="password" id="adminPass" placeholder="Пароль" style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-family: 'Poppins', sans-serif;">
+            <button id="loginBtn" style="width: 100%; background: #ffca28; border: none; padding: 12px; border-radius: 5px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: 'Poppins', sans-serif;">Войти</button>
+            <p id="loginError" style="color: #e74c3c; margin-top: 15px; display: none; font-size: 14px;">Неверный логин или пароль</p>
         </div>
     </div>
 
+    <!-- Основной интерфейс админки (скрыт по умолчанию) -->
     <div class="admin-container" id="app" style="display: none;">
         <h1>Управление заказами</h1>
         <div id="loading" class="loading">Загрузка заказов...</div>
@@ -86,6 +97,7 @@
                     <th>Адрес / Способ получения</th>
                     <th>Заказ</th>
                     <th>Сумма (₽)</th>
+                    <th>Статус</th>
                     <th>Действие</th>
                 </tr>
             </thead>
@@ -96,18 +108,13 @@
     </div>
 
     <script>
-        function login() {
-            const user = document.getElementById('adminUser').value;
-            const pass = document.getElementById('adminPass').value;
-            
-            if (user === 'Admin1' && pass === '12345asd') {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-                fetchOrders();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
+        // ЛОГИКА АВТОРИЗАЦИИ
+        const loginOverlay = document.getElementById('loginOverlay');
+        const appContainer = document.getElementById('app');
+        const loginBtn = document.getElementById('loginBtn');
+        const adminUser = document.getElementById('adminUser');
+        const adminPass = document.getElementById('adminPass');
+        const loginError = document.getElementById('loginError');
 
         // Данные Supabase 
         const SUPABASE_URL = 'https://allymvkgifonzmtszafk.supabase.co';
@@ -118,6 +125,42 @@
             'apikey': SUPABASE_ANON_KEY,
             'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
         };
+
+        async function attemptLogin() {
+            const email = adminUser.value.trim();
+            const pass = adminPass.value;
+
+            loginBtn.textContent = 'Загрузка...';
+            loginBtn.disabled = true;
+            loginError.style.display = 'none';
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+                    body: JSON.stringify({ email: email, password: pass })
+                });
+
+                if (!response.ok) throw new Error('Неверный Email или пароль');
+
+                const data = await response.json();
+                // Подменяем анонимный токен на токен авторизованного администратора
+                headers['Authorization'] = `Bearer ${data.access_token}`;
+
+                loginOverlay.style.display = 'none';
+                appContainer.style.display = 'block';
+                fetchOrders(); 
+            } catch (error) {
+                loginError.textContent = error.message;
+                loginError.style.display = 'block';
+            } finally {
+                loginBtn.textContent = 'Войти';
+                loginBtn.disabled = false;
+            }
+        }
+
+        loginBtn.addEventListener('click', attemptLogin);
+        adminPass.addEventListener('keypress', (e) => { if (e.key === 'Enter') attemptLogin(); });
 
         // Функция получения заказов
         async function fetchOrders() {
@@ -145,9 +188,13 @@
             tbody.innerHTML = '';
             
             if (orders.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 30px; color: #555;">Заказов пока нет.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 30px; color: #555;">Заказов пока нет.</td></tr>';
             } else {
                 orders.forEach(order => {
+                    const currentStatus = order.status || 'Новый';
+                    const statusOptions = ['Новый', 'Готовится', 'В пути', 'Выполнен', 'Отменен'];
+                    const statusColors = { 'Новый': '#e74c3c', 'Готовится': '#f39c12', 'В пути': '#3498db', 'Выполнен': '#2ecc71', 'Отменен': '#95a5a6' };
+
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${order.id || '-'}</td>
@@ -156,7 +203,12 @@
                         <td>${order.order_content}</td>
                         <td><strong>${order.total_price} ₽</strong></td>
                         <td>
-                            <button class="btn-delete" onclick="deleteOrder(${order.id})">Отменить</button>
+                            <select class="status-select" style="color: #fff; background-color: ${statusColors[currentStatus] || '#333'}" onchange="updateOrderStatus(${order.id}, this)">
+                                ${statusOptions.map(s => `<option value="${s}" style="color:#000; background:#fff;" ${currentStatus === s ? 'selected' : ''}>${s}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn-delete" onclick="deleteOrder(${order.id})">Удалить</button>
                         </td>
                     `;
                     tbody.appendChild(tr);
@@ -193,6 +245,30 @@
             } catch (error) {
                 console.error(error);
                 alert("Не удалось отменить заказ. Попробуйте еще раз.");
+            }
+        }
+
+        // Функция обновления статуса заказа
+        async function updateOrderStatus(id, selectElement) {
+            const newStatus = selectElement.value;
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/orders?id=eq.${id}`, {
+                    method: 'PATCH',
+                    headers: Object.assign({}, headers, { 'Prefer': 'return=minimal' }),
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || errData.details || 'Ошибка сервера Supabase');
+                }
+                
+                const statusColors = { 'Новый': '#e74c3c', 'Готовится': '#f39c12', 'В пути': '#3498db', 'Выполнен': '#2ecc71', 'Отменен': '#95a5a6' };
+                selectElement.style.backgroundColor = statusColors[newStatus] || '#333';
+            } catch (error) {
+                console.error(error);
+                alert(`Не удалось обновить статус:\n${error.message}`);
+                fetchOrders(); // возвращаем старый статус
             }
         }
     </script>
